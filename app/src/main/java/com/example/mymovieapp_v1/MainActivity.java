@@ -66,4 +66,6 @@ public class MainActivity extends AppCompatActivity {
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.main_fragment);
         setupActionBarWithNavController((AppCompatActivity) activity, navHostFragment.getNavController());
     }
+
+//    Dit is een test. Public / private test sheesh. ez ez.
 }
