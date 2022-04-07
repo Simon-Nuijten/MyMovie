@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">MyMovieApp_V1</string>
+    <string name="language">Taal:</string>
+    <string name="placeholder_movie_title">Placeholder film titel</string>
+    <string name="placeholder_movie_description">Placeholder film beschrijving</string>
+    <string name="preference_file_key">SharedPreferencesConfiguration</string>
+    <string name="configResponse">ConfigurationResponse</string>
+    <string name="movieListsResponse">MovieListsResponse</string>
+    <string name="movie_title_placeholder">Film titel placeholder</string>
+    <string name="movie_description_placeholder">Movie description placeholder</string>
+    <string name="views_amount">Weergaven:</string>
+    <string name="move_details_genres">Genres:</string>
+    <string name="placeholder_review_author_name">Placeholder review naam schrijver</string>
+    <string name="placeholder_review_description">Placeholder review beschrijving</string>
+    <string name="reviews_title">Reviews</string>
+    <string name="placeholder_list_title">Placeholder lijst titel</string>
+    <string name="list_name">Lijst naam (vereist)</string>
+    <string name="list_description">Lijst beschrijving (optioneel)</string>
+</resources>

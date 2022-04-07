@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">MyMovieApp_V1</string>
+    <string name="language">Language:</string>
+    <string name="placeholder_movie_title">Placeholder movie title</string>
+    <string name="placeholder_movie_description">Placeholder movie description</string>
+    <string name="preference_file_key">SharedPreferencesConfiguration</string>
+    <string name="configResponse">ConfigurationResponse</string>
+    <string name="movieListsResponse">MovieListsResponse</string>
+    <string name="movie_title_placeholder">Movie Title placeholder</string>
+    <string name="movie_description_placeholder">Movie description placeholder</string>
+    <string name="views_amount">Views:</string>
+    <string name="move_details_genres">Genres:</string>
+    <string name="placeholder_review_author_name">Placeholder review author name</string>
+    <string name="placeholder_review_description">Placeholder review description</string>
+    <string name="reviews_title">Reviews</string>
+    <string name="placeholder_list_title">Placeholder list title</string>
+    <string name="list_name">List name (required)</string>
+    <string name="list_description">List description (optional)</string>
+</resources>

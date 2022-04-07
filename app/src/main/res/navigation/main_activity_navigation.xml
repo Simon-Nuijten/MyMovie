@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main_activity_navigation"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@+id/navigation_home">
+
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="com.example.mymovieapp_v1.ui.home.home"
+        tools:layout="@layout/home_fragment" />
+
+    <fragment
+        android:id="@+id/navigation_movie"
+        android:name="com.example.mymovieapp_v1.ui.movies.movies"
+        tools:layout="@layout/movies_fragment" />
+
+    <fragment
+        android:id="@+id/navigation_profile"
+        android:name="com.example.mymovieapp_v1.ui.profile.profile"
+        tools:layout="@layout/profile_fragment" />
+
+</navigation>
