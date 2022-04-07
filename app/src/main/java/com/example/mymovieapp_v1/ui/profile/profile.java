@@ -41,6 +41,7 @@ import com.example.mymovieapp_v1.domain.ListDetails;
 import com.example.mymovieapp_v1.domain.Movie;
 import com.example.mymovieapp_v1.domain.MoviesList;
 import com.example.mymovieapp_v1.presentation.ListsAdapter;
+import com.example.mymovieapp_v1.presentation.validation.ValidateListInput;
 import com.example.mymovieapp_v1.ui.listDetails.ListDetailsActivity;
 
 import java.util.ArrayList;
@@ -236,7 +237,7 @@ public class profile extends Fragment {
                 button.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        if (listName.getText().toString().isEmpty()) {
+                        if (ValidateListInput.validateListName(listName.getText().toString())) {
                             listName.getBackground().setColorFilter(profile.this.getResources().getColor(R.color.red), PorterDuff.Mode.SRC_ATOP);
                             Toast.makeText(profile.this.requireActivity(), "List name is required!", Toast.LENGTH_LONG).show();
                         } else {
