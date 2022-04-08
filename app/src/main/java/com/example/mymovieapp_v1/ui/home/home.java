@@ -11,11 +11,16 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 
 import com.example.mymovieapp_v1.R;
 
 public class home extends Fragment {
 
+    private ImageButton nowPlaying;
+    private ImageButton popularMovies;
+    private ImageButton topRatedMovies;
+    private ImageButton upcomingMovies;
     private HomeViewModel mViewModel;
 
     public static home newInstance() {
@@ -25,7 +30,14 @@ public class home extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.home_fragment, container, false);
+        View view = inflater.inflate(R.layout.home_fragment, container, false);
+
+        nowPlaying.findViewById(R.id.show_now_playing);
+        popularMovies.findViewById(R.id.show_popular);
+        topRatedMovies.findViewById(R.id.show_top_rated_movies);
+        upcomingMovies.findViewById(R.id.show_upcoming);
+
+        return view;
     }
 
     @Override
