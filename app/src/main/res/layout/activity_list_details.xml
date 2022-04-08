@@ -23,6 +23,13 @@
             android:layout_height="wrap_content"
             android:textSize="20sp" />
 
+        <Button
+            android:id="@+id/list_share"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Share" />
+
     </LinearLayout>
 
     <LinearLayout
@@ -38,7 +45,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/lists_recyclerview_movie"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="552dp" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

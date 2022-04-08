@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -37,6 +38,7 @@ public class ListDetailsActivity extends AppCompatActivity {
     private TextView listTitle;
     private RecyclerView listOfMovies;
     private SharedPreferences sharedPreferences;
+    private StringBuilder stringBuilder = new StringBuilder();
 
     private static final String LOG_TAG = ListDetailsActivity.class.getSimpleName();
 
@@ -48,6 +50,8 @@ public class ListDetailsActivity extends AppCompatActivity {
         list = (MoviesList) getIntent().getSerializableExtra("LIST");
         pViewModel = new ViewModelProvider(this).get(ProfileViewModel.class);
         pViewModel.getListDetails(list.getId());
+
+        stringBuilder.append(list.getName() + "\n" );
 
         sharedPreferences = this.getSharedPreferences(String.valueOf(R.string.preference_file_key), Context.MODE_PRIVATE);
 
@@ -62,9 +66,13 @@ public class ListDetailsActivity extends AppCompatActivity {
         listMoviesAdapter = new ListMoviesAdapter(this, null, configurationResponse);
 
         pViewModel.getmListDetails().observe(this, listDetails -> {
+            for(Movie name : listDetails.getItems()){
+                stringBuilder.append(name.getTitle() + "\n" );
+            }
             if (listDetails != null) {
                 listTitle.setText(listDetails.getName());
                 listMoviesAdapter.setData(listDetails);
+
 
                 listOfMovies.setAdapter(listMoviesAdapter);
                 listOfMovies.setLayoutManager(new LinearLayoutManager(this));
@@ -82,6 +90,19 @@ public class ListDetailsActivity extends AppCompatActivity {
                 Toast.makeText(ListDetailsActivity.this, String.format("Movie %s removed", movie.getTitle()), Toast.LENGTH_SHORT).show();
 
                 listMoviesAdapter.notifyDataSetChanged();
+            }
+        });
+        findViewById(R.id.list_share).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+                sharingIntent.setType("text/plain");
+                String shareBody = stringBuilder.toString();
+                String shareSub = "Share movie List";
+                sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, shareSub);
+                sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
+                startActivity(Intent.createChooser(sharingIntent, "Share using"));
             }
         });
     }
