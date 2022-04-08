@@ -7,7 +7,7 @@ public class Movie {
     private String backdrop_path;
     private ArrayList<Integer> genre_ids;
     private int id;
-        private String original_language;
+    private String original_language;
     private String original_title;
     private String overview;
     private Double popularity;

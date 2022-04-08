@@ -14,13 +14,13 @@ import com.example.mymovieapp_v1.domain.response.GenreResponse;
 import com.example.mymovieapp_v1.domain.response.ListResponse;
 import com.example.mymovieapp_v1.domain.response.MovieResponse;
 import com.example.mymovieapp_v1.domain.response.ReviewResponse;
+import com.example.mymovieapp_v1.domain.response.TrailerResponse;
+import com.example.mymovieapp_v1.domain.response.LatestResponse;
 
-import java.util.HashMap;
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
-import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
@@ -47,6 +47,19 @@ public interface TmdbApiService {
 
     @GET("movie/{movie_id}/reviews?api_key=" + API_KEY)
     Call<ReviewResponse> getReviews(@Path("movie_id")int movieId);
+
+    @GET("movie/now_playing?api_key=" + API_KEY)
+    Call<LatestResponse> getNowPlayingMovies();
+
+    @GET("movie/top_rated?api_key=" + API_KEY)
+    Call<MovieResponse> getTopRatedMovies();
+
+    @GET("movie/upcoming?api_key=" + API_KEY)
+    Call<LatestResponse> getUpcomingMovies();
+
+    //Get trailer link
+    @GET("movie/{movie_id}/videos")
+    Call<TrailerResponse> getTrailer(@Path("movie_id")int movieId);
 
     //Get Session_id token
     @GET("authentication/token/new?api_key=" + API_KEY)
