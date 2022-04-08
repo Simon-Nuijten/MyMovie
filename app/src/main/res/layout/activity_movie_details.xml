@@ -133,12 +133,12 @@
                 android:gravity="end">
 
                 <Button
-                    android:id="@+id/movie_review_addreview"
+                    android:id="@+id/movie_share"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
                     android:paddingHorizontal="8dp"
-                    android:text="Add Review" />
+                    android:text="Share" />
             </LinearLayout>
 
         </LinearLayout>

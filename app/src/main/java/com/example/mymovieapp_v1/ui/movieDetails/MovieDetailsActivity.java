@@ -2,17 +2,16 @@ package com.example.mymovieapp_v1.ui.movieDetails;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -24,21 +23,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.example.mymovieapp_v1.MainActivity;
 import com.example.mymovieapp_v1.R;
-import com.example.mymovieapp_v1.domain.Movie;
-import com.example.mymovieapp_v1.domain.MoviesList;
-import com.example.mymovieapp_v1.domain.Review;
 import com.example.mymovieapp_v1.domain.response.ConfigurationResponse;
 import com.example.mymovieapp_v1.presentation.MovieDto;
 import com.example.mymovieapp_v1.presentation.ReviewAdapter;
 import com.example.mymovieapp_v1.ui.lists.MovieListViewModel;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class MovieDetailsActivity extends AppCompatActivity {
 
@@ -74,7 +66,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
         movieListViewModel.getMovieListsTask();
 
         //TODO: On this button clicked add a review to current movie
-        movieReviewAddReview = findViewById(R.id.movie_review_addreview);
+        movieReviewAddReview = findViewById(R.id.movie_share);
 
         movieDetailsImage = findViewById(R.id.movie_details_image);
         movieDetailsTitle = findViewById(R.id.movie_details_title);
@@ -115,6 +107,21 @@ public class MovieDetailsActivity extends AppCompatActivity {
         movieDetailsReleaseDate.setText("Released: " + movie.getRelease_date());
 
         reviewAdapter = new ReviewAdapter(new ArrayList<>(), this);
+
+        findViewById(R.id.movie_share).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+                sharingIntent.setType("text/plain");
+                String shareBody = movie.getOriginal_title() + " | " + movie.getRelease_date();
+                String shareSub = movie.getOverview();
+                sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, shareSub);
+                sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
+                startActivity(Intent.createChooser(sharingIntent, "Share using"));
+            }
+        });
+
 
         movieDetailsViewModel.getReviews().observe(this, reviews -> {
             if (reviews != null) {
