@@ -6,9 +6,15 @@ import com.example.mymovieapp_v1.domain.Dates;
 import java.util.ArrayList;
 
 public class LatestResponse {
+<<<<<<< HEAD
     private int page;
     private ArrayList<Movie> results;
     private Dates dates;
+=======
+    private Dates dates;
+    private int page;
+    private ArrayList<Movie> results;
+>>>>>>> master
     private int total_pages;
     private int total_results;
 

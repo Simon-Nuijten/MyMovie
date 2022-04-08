@@ -10,24 +10,35 @@ import com.example.mymovieapp_v1.datastorage.interfaces.TmdbApiService;
 import com.example.mymovieapp_v1.domain.Genre;
 import com.example.mymovieapp_v1.domain.Movie;
 import com.example.mymovieapp_v1.domain.response.GenreResponse;
+import com.example.mymovieapp_v1.domain.response.LatestResponse;
 import com.example.mymovieapp_v1.domain.response.MovieResponse;
 import com.example.mymovieapp_v1.presentation.MovieDto;
+import com.example.mymovieapp_v1.ui.movies.movies;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
+import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MovieRepository {
     private MutableLiveData<List<MovieDto>> movies;
+    private MutableLiveData<List<Movie>> topRatedMovies;
+    private MutableLiveData<List<Movie>> nowPlayingMovies;
+    private MutableLiveData<List<Movie>> upcomingMovies;
+    private MutableLiveData<List<Movie>> popularMovies;
     private static volatile MovieRepository instance;
     private static final String LOG_TAG = MovieRepository.class.getSimpleName();
 
     public MovieRepository() {
         movies = new MutableLiveData<>();
+        popularMovies = new MutableLiveData<>();
+        topRatedMovies = new MutableLiveData<>();
+        upcomingMovies = new MutableLiveData<>();
+        nowPlayingMovies = new MutableLiveData<>();
     }
 
     public static MovieRepository getInstance() {
@@ -44,6 +55,142 @@ public class MovieRepository {
 
     public LiveData<List<MovieDto>> getMovies() {
         return this.movies;
+    }
+
+    public LiveData<List<Movie>> getTopRatedMovies() {return this.topRatedMovies;}
+    public LiveData<List<Movie>> getNowPlayingMovies() {return this.nowPlayingMovies;}
+    public LiveData<List<Movie>> getUpcomingMovies() {return this.upcomingMovies;}
+    public LiveData<List<Movie>> getPopularMovies() {return this.popularMovies;}
+
+    public void getPopular() {
+        try {
+            Retrofit retrofit = new Retrofit.Builder()
+                    .baseUrl(TmdbApiService.BASE_URL)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
+
+            TmdbApiService tmdbApiService = retrofit.create(TmdbApiService.class);
+
+            Call<MovieResponse> call = tmdbApiService.getPopularMovies();
+
+            call.enqueue(new Callback<MovieResponse>() {
+                @Override
+                public void onResponse(Call<MovieResponse> call, Response<MovieResponse> response) {
+                    if (response.isSuccessful()) {
+                        popularMovies.setValue(response.body().getResults());
+                        Log.d(LOG_TAG, String.format("Getting popular movies: %o", response.body().getResults().size()));
+                    } else {
+                        Log.d(LOG_TAG, String.format("Error getting popular movies: %s", response.message()));
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<MovieResponse> call, Throwable t) {
+                    Log.d(LOG_TAG, "Error getting popular movies: " + t.getMessage());
+                }
+            });
+
+        } catch (Exception e) {
+            Log.d(LOG_TAG, "Exception: " + e.getLocalizedMessage());
+        }
+    }
+
+    public void getNowPlaying() {
+        try {
+            Retrofit retrofit = new Retrofit.Builder()
+                    .baseUrl(TmdbApiService.BASE_URL)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
+
+            TmdbApiService tmdbApiService = retrofit.create(TmdbApiService.class);
+
+            Call<LatestResponse> call = tmdbApiService.getNowPlayingMovies();
+
+            call.enqueue(new Callback<LatestResponse>() {
+                @Override
+                public void onResponse(Call<LatestResponse> call, Response<LatestResponse> response) {
+                    if (response.isSuccessful()) {
+                        nowPlayingMovies.setValue(response.body().getResults());
+                        Log.d(LOG_TAG, String.format("Getting NowPlayingMovies: %o", response.body().getResults().size()));
+                    } else {
+                        Log.d(LOG_TAG, String.format("Error getting NowPlayingMovies: %s", response.message()));
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<LatestResponse> call, Throwable t) {
+                    Log.d(LOG_TAG, "Error getting now playing movies: " + t.getMessage());
+                }
+            });
+
+        } catch (Exception e) {
+            Log.d(LOG_TAG, "Exception: " + e.getLocalizedMessage());
+        }
+    }
+
+    public void getTopRated() {
+        try {
+            Retrofit retrofit = new Retrofit.Builder()
+                    .baseUrl(TmdbApiService.BASE_URL)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
+
+            TmdbApiService tmdbApiService = retrofit.create(TmdbApiService.class);
+
+            Call<MovieResponse> call = tmdbApiService.getTopRatedMovies();
+
+            call.enqueue(new Callback<MovieResponse>() {
+                @Override
+                public void onResponse(Call<MovieResponse> call, Response<MovieResponse> response) {
+                    if (response.isSuccessful()) {
+                        topRatedMovies.setValue(response.body().getResults());
+                        Log.d(LOG_TAG, String.format("Getting top rated: %o", response.body().getResults().size()));
+                    } else {
+                        Log.d(LOG_TAG, String.format("Error getting top rated: %s", response.message()));
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<MovieResponse> call, Throwable t) {
+                    Log.d(LOG_TAG, "Error getting top rated movies: " + t.getMessage());
+                }
+            });
+        } catch (Exception e) {
+            Log.d(LOG_TAG, "Exception: " + e.getLocalizedMessage());
+        }
+    }
+
+    public void getUpcoming() {
+        try {
+            Retrofit retrofit = new Retrofit.Builder()
+                    .baseUrl(TmdbApiService.BASE_URL)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
+
+            TmdbApiService tmdbApiService = retrofit.create(TmdbApiService.class);
+
+            Call<LatestResponse> call = tmdbApiService.getUpcomingMovies();
+
+            call.enqueue(new Callback<LatestResponse>() {
+                @Override
+                public void onResponse(Call<LatestResponse> call, Response<LatestResponse> response) {
+                    if (response.isSuccessful()) {
+                        upcomingMovies.setValue(response.body().getResults());
+                        Log.d(LOG_TAG, String.format("Getting upcoming: %o", response.body().getResults().size()));
+
+                    } else {
+                        Log.d(LOG_TAG, String.format("Error getting upcoming: %s", response.message()));
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<LatestResponse> call, Throwable t) {
+                    Log.d(LOG_TAG, "Error getting upcoming movies: " + t.getMessage());
+                }
+            });
+        } catch (Exception e) {
+            Log.d(LOG_TAG, "Exception: " + e.getLocalizedMessage());
+        }
     }
 
     private class MoviesAsyncTask extends AsyncTask<Void, Void, List<MovieDto>> {

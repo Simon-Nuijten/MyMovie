@@ -48,7 +48,11 @@ public interface TmdbApiService {
     @GET("movie/{movie_id}/reviews?api_key=" + API_KEY)
     Call<ReviewResponse> getReviews(@Path("movie_id")int movieId);
 
+<<<<<<< HEAD
     @GET("movie/latest?api_key=" + API_KEY)
+=======
+    @GET("movie/now_playing?api_key=" + API_KEY)
+>>>>>>> master
     Call<LatestResponse> getNowPlayingMovies();
 
     @GET("movie/top_rated?api_key=" + API_KEY)
