@@ -14,6 +14,7 @@ import com.example.mymovieapp_v1.domain.response.GenreResponse;
 import com.example.mymovieapp_v1.domain.response.ListResponse;
 import com.example.mymovieapp_v1.domain.response.MovieResponse;
 import com.example.mymovieapp_v1.domain.response.ReviewResponse;
+import com.example.mymovieapp_v1.domain.response.TrailerResponse;
 
 import java.util.HashMap;
 import java.util.List;
@@ -47,6 +48,10 @@ public interface TmdbApiService {
 
     @GET("movie/{movie_id}/reviews?api_key=" + API_KEY)
     Call<ReviewResponse> getReviews(@Path("movie_id")int movieId);
+
+    //Get trailer link
+    @GET("movie/{movie_id}/videos")
+    Call<TrailerResponse> getTrailer(@Path("movie_id")int movieId);
 
     //Get Session_id token
     @GET("authentication/token/new?api_key=" + API_KEY)
